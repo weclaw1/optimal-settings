@@ -1,0 +1,10 @@
+/run/host/var/home/weclaw/weclaw/optimal-settings/optimal-settings-backend/target/debug/deps/lock_api-2159a54d4355432e.rmeta: /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/lib.rs /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/mutex.rs /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/remutex.rs /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/rwlock.rs
+
+/run/host/var/home/weclaw/weclaw/optimal-settings/optimal-settings-backend/target/debug/deps/liblock_api-2159a54d4355432e.rlib: /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/lib.rs /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/mutex.rs /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/remutex.rs /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/rwlock.rs
+
+/run/host/var/home/weclaw/weclaw/optimal-settings/optimal-settings-backend/target/debug/deps/lock_api-2159a54d4355432e.d: /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/lib.rs /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/mutex.rs /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/remutex.rs /var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/rwlock.rs
+
+/var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/lib.rs:
+/var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/mutex.rs:
+/var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/remutex.rs:
+/var/home/weclaw/weclaw/.cargo/registry/src/index.crates.io-6f17d22bba15001f/lock_api-0.4.10/src/rwlock.rs:

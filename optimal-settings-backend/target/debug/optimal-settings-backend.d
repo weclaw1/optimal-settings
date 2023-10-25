@@ -1,0 +1,1 @@
+/run/host/var/home/weclaw/weclaw/optimal-settings/optimal-settings-backend/target/debug/optimal-settings-backend: /run/host/var/home/weclaw/weclaw/optimal-settings/optimal-settings-backend/src/main.rs
