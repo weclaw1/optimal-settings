@@ -1,7 +1,7 @@
-import Image from "next/image";
+import HomeHero from "./components/HomeHero";
 
 export default function Home() {
   return (
-    <button className="btn">Hello daisyUI</button>
+    <HomeHero />
   );
 }
