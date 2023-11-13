@@ -9,7 +9,11 @@ type NavigationProps = {
   }[];
 };
 
-export default function Navigation({ children, title, routes }: NavigationProps) {
+export default function Navigation({
+  children,
+  title,
+  routes,
+}: NavigationProps) {
   return (
     <div className="drawer bg-base-100">
       <input id="drawer" type="checkbox" className="drawer-toggle" />
@@ -36,9 +40,9 @@ export default function Navigation({ children, title, routes }: NavigationProps)
               </svg>
             </label>
           </div>
-          { title && <div className="px-2 mx-2">{title}</div> }
+          {title && <div className="px-2 mx-2">{title}</div>}
           <div className="flex-none hidden lg:block">
-            <NavigationMenu routes={routes} type="horizontal"/>
+            <NavigationMenu routes={routes} type="horizontal" />
           </div>
         </div>
         {children}
@@ -49,7 +53,7 @@ export default function Navigation({ children, title, routes }: NavigationProps)
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <NavigationMenu routes={routes} type="vertical"/>
+        <NavigationMenu routes={routes} type="vertical" />
       </div>
     </div>
   );

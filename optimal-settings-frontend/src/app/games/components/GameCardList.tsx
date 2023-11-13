@@ -1,30 +1,17 @@
 import GameCard from "./GameCard";
+import { Game } from "../types/game";
 
 type GameCardListProps = {
-  games: {
-    id: string;
-    name: string;
-    slug: string;
-    image: {
-      src: string;
-      alt: string;
-      width: number;
-      height: number;
-    };
-  }[];
+  games: Game[];
 };
 
 export default function GameCardList({ games }: GameCardListProps) {
   if (games.length === 0) {
-    return (
-      <p className="p-4">
-        No games found
-      </p>
-    );
+    return <p className="m-4">No games found</p>;
   }
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-4">
+    <div className="flex flex-col gap-4">
       {games.map((game) => (
         <GameCard key={game.id} {...game} />
       ))}

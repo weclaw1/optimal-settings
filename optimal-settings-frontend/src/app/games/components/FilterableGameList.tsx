@@ -1,37 +1,31 @@
-'use client'
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
 import SearchBar from "@/components/SearchBar";
 import GameCardList from "./GameCardList";
+import { Game } from "../types/game";
 
 type FilterableGameListProps = {
   initialFilterText?: string;
-  games: {
-    id: string;
-    name: string;
-    slug: string;
-    image: {
-      src: string;
-      alt: string;
-      width: number;
-      height: number;
-    };
-  }[];
+  games: Game[];
 };
 
-export default function FilterableGameList({ games, initialFilterText = '' }: FilterableGameListProps) {
+export default function FilterableGameList({
+  games,
+  initialFilterText = "",
+}: FilterableGameListProps) {
   const [filterText, setFilterText] = useState(initialFilterText);
 
   return (
-    <div className="p-2">
+    <div className="m-4 flex flex-col gap-4">
       <SearchBar
         filterText={filterText}
         onFilterTextChange={(event) => setFilterText(event.target.value)}
       />
       <GameCardList
         games={games.filter((game) =>
-          game.name.toLowerCase().includes(filterText.toLowerCase())
+          game.name.toLowerCase().includes(filterText.toLowerCase()),
         )}
       />
     </div>

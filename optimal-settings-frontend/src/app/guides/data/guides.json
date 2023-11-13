@@ -1,0 +1,26 @@
+[
+  {
+    "id": "c99076d7-4fb0-4581-9ff5-ce8e62d20f3f",
+    "name": "Anti-Aliasing",
+    "slug": "anti-aliasing",
+    "image": {
+      "src": "/images/guides/anti-aliasing.png",
+      "attribution": "<a href='https://commons.wikimedia.org/wiki/File:Anti-aliasing_demo.svg'>Anti-aliasing.jpg: The original uploader was MD at Dutch Wikipedia.derivative work: trlkly</a>, <a href='https://creativecommons.org/licenses/by-sa/3.0'>CC BY-SA 3.0</a>, via Wikimedia Commons",
+      "alt": "Anti-Aliasing",
+      "width": 716,
+      "height": 1024
+    }
+  },
+  {
+    "id": "ff1bf2d8-91ca-46f7-a40c-0148975575a9",
+    "name": "Anisotropic Filtering",
+    "slug": "anisotropic-filtering",
+    "image": {
+      "src": "/images/guides/anisotropic-filtering.png",
+      "attribution": "<a href='https://commons.wikimedia.org/wiki/File:Anisotropic_filtering_en.png'>Cobblestones.JPG: THOMASderivative work: Lampak</a>, <a href='http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA 3.0</a>, via Wikimedia Commons",
+      "alt": "Anisotropic Filtering",
+      "width": 1300,
+      "height": 615
+    }
+  }
+]

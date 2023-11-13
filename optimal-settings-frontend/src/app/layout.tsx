@@ -10,22 +10,23 @@ const title = "Optimal Settings";
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: "/",
+    name: "Home",
   },
   {
-    path: '/games',
-    name: 'Games',
+    path: "/games",
+    name: "Games",
   },
   {
-    path: '/guides',
-    name: 'Guides',
+    path: "/guides",
+    name: "Guides",
   },
-]
+];
 
 export const metadata: Metadata = {
   title,
-  description: "Web app with optimal settings for games and guides for game settings",
+  description:
+    "Web app with optimal settings for games and guides for game settings",
 };
 
 export default function RootLayout({

@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
 type SearchBarProps = {
   filterText?: string;
   placeholder?: string;
   submitButton?: {
     text: string;
-  }
+  };
   onFilterTextChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSearch?: (data: FormData) => void;
 };
@@ -29,10 +29,7 @@ export default function SearchBar({
         onChange={onFilterTextChange}
       />
       {submitButton && (
-        <button
-          type="submit"
-          className="btn btn-primary m-1"
-        >
+        <button type="submit" className="btn btn-primary m-1">
           {submitButton.text}
         </button>
       )}

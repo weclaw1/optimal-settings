@@ -1,44 +1,17 @@
 import games from "../data/games.json";
 import gameDetails from "./data/game-details.json";
+import { GameDetails } from "./types/game-details";
+import Settings from "./components/Settings";
 
 export async function generateStaticParams() {
   return games.map((game) => ({
     slug: game.slug,
-  }))
+  }));
 }
 
-type GameDetails = {
-  id: string;
-  name: string;
-  slug: string;
-  image: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
-  settings: {
-    high?: {
-      [key: string]: string;
-    };
-    medium?: {
-      [key: string]: string;
-    };
-    low?: {
-      [key: string]: string;
-    };
-    additionalInformation?: string;
-  };
-  settingsSources: {
-    low?: string;
-    medium?: string;
-    high?: string;
-  }
-};
-
-export default function Page({ params }: { params: { slug: string } }) {
+export default function Game({ params }: { params: { slug: string } }) {
   const { slug } = params;
-  const game = (gameDetails as {[key: string]: GameDetails})[slug];
+  const game = (gameDetails as { [key: string]: GameDetails })[slug];
 
   if (!game) {
     throw new Error(`No game found for slug: ${slug}`);
@@ -46,7 +19,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <div className="min-h-screen mx-auto">
-      <h1>{game.name}</h1>
+      <Settings gameDetails={game} />
     </div>
   );
 }

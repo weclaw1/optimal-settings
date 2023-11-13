@@ -4,14 +4,14 @@ import TableCell from "@/components/TableCell";
 import TableRow from "@/components/TableRow";
 
 type SettingsTableProps = {
-  settings: object;
+  settings: [string, string][];
 };
 
 export default function SettingsTable({ settings }: SettingsTableProps) {
   return (
-    <Table striped>
+    <Table striped border="border">
       <TableBody>
-        {Object.entries(settings).map(([key, value]) => (
+        {settings.map(([key, value]) => (
           <TableRow key={key}>
             <TableCell type="th">{key}</TableCell>
             <TableCell>{value}</TableCell>
