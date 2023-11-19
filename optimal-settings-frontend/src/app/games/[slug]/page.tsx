@@ -17,9 +17,5 @@ export default function Game({ params }: { params: { slug: string } }) {
     throw new Error(`No game found for slug: ${slug}`);
   }
 
-  return (
-    <div className="min-h-screen mx-auto">
-      <Settings gameDetails={game} />
-    </div>
-  );
+  return <Settings gameDetails={game} />;
 }

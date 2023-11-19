@@ -38,7 +38,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navigation title={title} routes={routes}>
-          {children}
+          <div className="max-w-screen-2xl mx-auto py-4 px-4 sm:px-6 md:px-8 min-h-[calc(100vh-4.5rem)]">
+            {children}
+          </div>
         </Navigation>
       </body>
     </html>

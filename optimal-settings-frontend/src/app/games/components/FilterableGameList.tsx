@@ -18,7 +18,7 @@ export default function FilterableGameList({
   const [filterText, setFilterText] = useState(initialFilterText);
 
   return (
-    <div className="m-4 flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <SearchBar
         filterText={filterText}
         onFilterTextChange={(event) => setFilterText(event.target.value)}

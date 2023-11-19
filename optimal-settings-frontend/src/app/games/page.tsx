@@ -9,8 +9,6 @@ export default function Games({
 }) {
   const initialFilterText = searchParams["search"] as string | undefined;
   return (
-    <div className="min-h-screen mx-auto">
-      <FilterableGameList games={games} initialFilterText={initialFilterText} />
-    </div>
+    <FilterableGameList games={games} initialFilterText={initialFilterText} />
   );
 }

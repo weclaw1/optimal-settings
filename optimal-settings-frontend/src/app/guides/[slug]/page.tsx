@@ -20,7 +20,7 @@ export default async function Guide({ params }: { params: { slug: string } }) {
   );
 
   return (
-    <article className="m-4 min-h-screen mx-auto prose">
+    <article className="prose">
       <MDXRemote source={guide} components={components} />
     </article>
   );

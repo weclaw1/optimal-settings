@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-import Tab from "./Tab";
-
 type TabSwitcherProps = {
   tabs: {
     label: string;
@@ -14,6 +12,24 @@ type TabSwitcherProps = {
   initialActiveTab?: number;
 };
 
+type TabProps = {
+  label: string;
+  active?: boolean;
+  onClick: () => void;
+};
+
+const Tab = ({ label, active, onClick }: TabProps) => {
+  let tabClasses = "tab";
+  if (active) {
+    tabClasses += " tab-active";
+  }
+  return (
+    <a className={tabClasses} onClick={onClick}>
+      {label}
+    </a>
+  );
+};
+
 export default function TabSwitcher({
   tabs,
   type,
@@ -22,9 +38,12 @@ export default function TabSwitcher({
 }: TabSwitcherProps) {
   const [activeTab, setActiveTab] = useState(initialActiveTab);
 
-  let tabsClasses = "flex flex-row justify-center tabs";
-  if (type === "boxed") {
+  let tabsClasses = "flex flex-row justify-center tabs gap-4";
+  if (type) {
     tabsClasses += ` tabs-${type}`;
+  }
+  if (size) {
+    tabsClasses += ` tabs-${size}`;
   }
 
   return (
@@ -35,8 +54,6 @@ export default function TabSwitcher({
             <Tab
               key={tab.label}
               label={tab.label}
-              type={type !== "boxed" ? type : undefined}
-              size={size}
               active={index === activeTab}
               onClick={() => setActiveTab(index)}
             />

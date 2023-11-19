@@ -16,8 +16,8 @@ export default function GameCard({ name, image, slug }: GameCardProps) {
   const route = `/games/${slug}`;
 
   return (
-    <Card image={image}>
-      <h2 className="card-title">{name}</h2>
+    <Card image={image} bordered>
+      <h2 className="card-title break-words">{name}</h2>
       <div className="card-actions">
         <Link className="btn btn-primary" href={route}>
           View

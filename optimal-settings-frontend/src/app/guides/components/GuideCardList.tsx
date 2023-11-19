@@ -11,7 +11,7 @@ export default function GuideCardList({ guides }: GuideCardListProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="grid grid-flow-row grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
       {guides.map((guide) => (
         <GuideCard key={guide.id} {...guide} />
       ))}

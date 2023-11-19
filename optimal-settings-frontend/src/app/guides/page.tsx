@@ -8,11 +8,9 @@ export default function Guides({
 }) {
   const initialFilterText = searchParams["search"] as string | undefined;
   return (
-    <div className="min-h-screen mx-auto">
-      <FilterableGuideList
-        guides={guides}
-        initialFilterText={initialFilterText}
-      />
-    </div>
+    <FilterableGuideList
+      guides={guides}
+      initialFilterText={initialFilterText}
+    />
   );
 }

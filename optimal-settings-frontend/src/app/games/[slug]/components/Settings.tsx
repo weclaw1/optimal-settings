@@ -1,70 +1,63 @@
 import TabSwitcher from "@/components/TabSwitcher";
 import Collapse from "@/components/Collapse";
 import SettingsTable from "./SettingsTable";
+import Reports from "./Reports";
 import { GameDetails } from "../types/game-details";
+import reportList from "../data/reports.json";
+import { Report } from "../types/report";
 
 type SettingsProps = {
   gameDetails: GameDetails;
 };
 
 export default function Settings({ gameDetails }: SettingsProps) {
-  let tabs = [];
+  const settingsTypes: Array<"low" | "medium" | "high"> = [
+    "low",
+    "medium",
+    "high",
+  ];
 
-  if (gameDetails.settings.low) {
-    tabs.push({
-      label: "Low",
-      content: (
-        <>
-          <SettingsTable settings={Object.entries(gameDetails.settings.low)} />
-          {gameDetails.settingsSources.low && (
-            <Collapse label="Sources" icon="arrow">
-              <p>{gameDetails.settingsSources.low}</p>
-            </Collapse>
-          )}
-        </>
-      ),
-    });
-  }
-  if (gameDetails.settings.medium) {
-    tabs.push({
-      label: "Medium",
-      content: (
-        <>
-          <SettingsTable
-            settings={Object.entries(gameDetails.settings.medium)}
-          />
-          {gameDetails.settingsSources.medium && (
-            <Collapse label="Sources" icon="arrow">
-              <p>{gameDetails.settingsSources.medium}</p>
-            </Collapse>
-          )}
-        </>
-      ),
-    });
-  }
-  if (gameDetails.settings.high) {
-    tabs.push({
-      label: "High",
-      content: (
-        <>
-          <SettingsTable settings={Object.entries(gameDetails.settings.high)} />
-          {gameDetails.settingsSources.high && (
-            <Collapse label="Sources" icon="arrow">
-              <p>{gameDetails.settingsSources.high}</p>
-            </Collapse>
-          )}
-        </>
-      ),
-    });
-  }
+  const generateTabContent = (type: "low" | "medium" | "high") => (
+    <div className="flex flex-col md:flex-row gap-1">
+      <div className="flex flex-col basis-1/2 gap-4">
+        <SettingsTable
+          settings={Object.entries(gameDetails.settings[type] || {})}
+        />
+        {gameDetails.settingsSources[type] && (
+          <Collapse label="Sources" icon="arrow">
+            <p className="break-all">{gameDetails.settingsSources[type]}</p>
+          </Collapse>
+        )}
+        {gameDetails.settings.additionalInformations && (
+          <Collapse label="Additional Informations" icon="arrow">
+            <p className="break-all">
+              {gameDetails.settings.additionalInformations}
+            </p>
+          </Collapse>
+        )}
+      </div>
+      <div className="divider divider-neutral md:divider-horizontal" />
+      <div className="basis-1/2">
+        <Reports
+          reports={reportList as Report[]}
+          gameId={gameDetails.id}
+          gameSlug={gameDetails.slug}
+          settingsType={type}
+        />
+      </div>
+    </div>
+  );
+
+  const tabs = settingsTypes
+    .filter((type) => gameDetails.settings.hasOwnProperty(type))
+    .map((type) => ({
+      label: type.charAt(0).toUpperCase() + type.slice(1),
+      content: generateTabContent(type),
+    }));
+
   return (
-    <div className="m-4 flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <TabSwitcher type="boxed" tabs={tabs} />
-      {gameDetails.settings.additionalInformations && (
-        <Collapse label="Additional Informations" icon="arrow">
-          <p>{gameDetails.settings.additionalInformations}</p>
-        </Collapse>
-      )}
     </div>
   );
 }

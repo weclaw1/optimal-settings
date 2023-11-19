@@ -21,5 +21,5 @@ export default function NavigationMenu({
       <Link href={route.path}>{route.name}</Link>
     </li>
   ));
-  return <ul className={`menu ${classes}`}>{links}</ul>;
+  return <ul className={`menu ${classes} gap-2`}>{links}</ul>;
 }
