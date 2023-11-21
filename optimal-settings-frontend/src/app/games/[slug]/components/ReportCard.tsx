@@ -22,7 +22,7 @@ export default function Report({ report }: ReportProps) {
             </span>
             <span>
               <span className="text-accent">Average FPS: </span>
-              {report.fps}
+              {report.averageFramesPerSecond}
             </span>
             {report.comments && (
               <span>
@@ -55,15 +55,15 @@ export default function Report({ report }: ReportProps) {
             </span>
             <span>
               <span className="text-accent">CPU: </span>
-              {report.cpu}
+              {report.processor}
             </span>
             <span>
               <span className="text-accent">GPU: </span>
-              {report.gpu}
+              {report.graphicsCard}
             </span>
             <span>
               <span className="text-accent">RAM: </span>
-              {report.ram}
+              {report.randomAccessMemory}
             </span>
           </div>
         </div>

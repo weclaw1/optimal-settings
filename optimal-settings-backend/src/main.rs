@@ -1,31 +1,39 @@
+mod migrations;
+
 use axum::{
     routing::{get, post},
     http::StatusCode,
     Json, Router,
 };
+use migrations::{Migrator, MigratorTrait};
+use sea_orm::Database;
 use serde::{Deserialize, Serialize};
-use std::net::SocketAddr;
+use std::{net::SocketAddr, env};
 
 #[tokio::main]
-async fn main() {
-    // initialize tracing
+async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
+    dotenvy::dotenv()?;
 
-    // build our application with a route
+    let db_url = env::var("DATABASE_URL").expect("DATABASE_URL is not set in .env file");
+    let host = env::var("HOST").expect("HOST is not set in .env file");
+    let port = env::var("PORT").expect("PORT is not set in .env file");
+    let server_url = format!("{host}:{port}");
+
+    let conn = Database::connect(db_url)
+        .await?;
+    Migrator::up(&conn, None).await?;
+
     let app = Router::new()
-        // `GET /` goes to `root`
         .route("/", get(root))
-        // `POST /users` goes to `create_user`
         .route("/users", post(create_user));
 
-    // run our app with hyper
-    // `axum::Server` is a re-export of `hyper::Server`
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
-    tracing::debug!("listening on {}", addr);
+    tracing::info!("Listening on {}", addr);
     axum::Server::bind(&addr)
         .serve(app.into_make_service())
-        .await
-        .unwrap();
+        .await?;
+    Ok(())
 }
 
 // basic handler that responds with a static string

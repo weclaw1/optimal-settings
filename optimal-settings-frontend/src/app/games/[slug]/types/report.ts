@@ -6,10 +6,10 @@ export type Report = {
   operatingSystem: OperatingSystem;
   operatingSystemVersion: string;
   kernelVersion?: string;
-  cpu: string;
-  gpu: string;
-  ram: string;
-  fps: number;
+  processor: string;
+  graphicsCard: string;
+  randomAccessMemory: string;
+  averageFramesPerSecond: number;
   resolution: string;
   comments?: string;
 };

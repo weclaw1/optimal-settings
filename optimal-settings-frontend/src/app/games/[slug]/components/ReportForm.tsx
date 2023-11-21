@@ -47,13 +47,13 @@ export default function ReportForm({
       />
       <FormInput
         label="Average FPS"
-        name="fps"
+        name="averageFramesPerSecond"
         type="number"
         min={1}
         step={1}
         required
         placeholder="60"
-        errors={state.errors.fieldErrors?.fps}
+        errors={state.errors.fieldErrors?.averageFramesPerSecond}
       />
       <FormSelect
         label="Operating System"
@@ -99,27 +99,27 @@ export default function ReportForm({
       />
       <FormInput
         label="CPU"
-        name="cpu"
+        name="processor"
         type="text"
         required
         placeholder="AMD Ryzen™ 7 6800HS"
-        errors={state.errors.fieldErrors?.cpu}
+        errors={state.errors.fieldErrors?.processor}
       />
       <FormInput
         label="GPU"
-        name="gpu"
+        name="graphicsCard"
         type="text"
         required
         placeholder="AMD Radeon™ RX 6700S"
-        errors={state.errors.fieldErrors?.gpu}
+        errors={state.errors.fieldErrors?.graphicsCard}
       />
       <FormInput
         label="RAM"
-        name="ram"
+        name="randomAccessMemory"
         type="text"
         required
         placeholder="32GB"
-        errors={state.errors.fieldErrors?.ram}
+        errors={state.errors.fieldErrors?.randomAccessMemory}
       />
       <FormTextarea
         label="Comments"

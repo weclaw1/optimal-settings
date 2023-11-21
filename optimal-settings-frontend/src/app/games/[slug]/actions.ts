@@ -14,10 +14,10 @@ export async function addReport(
     operatingSystem: z.enum(["windows", "linux", "macos", "other"]),
     operatingSystemVersion: z.string(),
     kernelVersion: z.string().optional(),
-    cpu: z.string(),
-    gpu: z.string(),
-    ram: z.string(),
-    fps: z.coerce.number().int().positive(),
+    processor: z.string(),
+    graphicsCard: z.string(),
+    randomAccessMemory: z.string(),
+    averageFramesPerSecond: z.coerce.number().int().positive(),
     resolution: z
       .string()
       .regex(/^\d{3,5}x\d{3,5}$/, {
