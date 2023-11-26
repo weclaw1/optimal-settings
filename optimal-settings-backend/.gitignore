@@ -1,1 +1,4 @@
 /target
+/data/optimal-settings.db
+/data/optimal-settings.db-shm
+/data/optimal-settings.db-wal

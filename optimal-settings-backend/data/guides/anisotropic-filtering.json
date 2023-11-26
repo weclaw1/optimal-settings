@@ -1,0 +1,12 @@
+{
+  "id": 1,
+  "name": "Anisotropic Filtering",
+  "slug": "anisotropic-filtering",
+  "image": {
+    "src": "/images/guides/anisotropic-filtering.png",
+    "attribution": "<a href='https://commons.wikimedia.org/wiki/File:Anisotropic_filtering_en.png'>Cobblestones.JPG: THOMASderivative work: Lampak</a>, <a href='http://creativecommons.org/licenses/by-sa/3.0/'>CC BY-SA 3.0</a>, via Wikimedia Commons",
+    "alt": "Anisotropic Filtering",
+    "width": 1300,
+    "height": 615
+  }
+}

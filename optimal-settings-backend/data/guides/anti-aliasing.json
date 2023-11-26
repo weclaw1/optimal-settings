@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "name": "Anti-Aliasing",
+  "slug": "anti-aliasing",
+  "image": {
+    "src": "/images/guides/anti-aliasing.png",
+    "attribution": "<a href='https://commons.wikimedia.org/wiki/File:Anti-aliasing_demo.svg'>Anti-aliasing.jpg: The original uploader was MD at Dutch Wikipedia.derivative work: trlkly</a>, <a href='https://creativecommons.org/licenses/by-sa/3.0'>CC BY-SA 3.0</a>, via Wikimedia Commons",
+    "alt": "Anti-Aliasing",
+    "width": 716,
+    "height": 1024
+  }
+}

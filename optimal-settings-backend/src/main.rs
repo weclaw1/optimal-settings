@@ -1,32 +1,39 @@
-mod migrations;
+use anyhow::Context;
+use axum::{extract::State, http::StatusCode, routing::{get, post, put, delete}, Router};
+use sqlx::{sqlite::SqlitePoolOptions, SqlitePool};
+use std::{net::SocketAddr, time::Duration};
 
-use axum::{
-    routing::{get, post},
-    http::StatusCode,
-    Json, Router,
-};
-use migrations::{Migrator, MigratorTrait};
-use sea_orm::Database;
-use serde::{Deserialize, Serialize};
-use std::{net::SocketAddr, env};
+mod services;
+mod controllers;
+mod models;
+mod repositories;
+mod error;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt::init();
-    dotenvy::dotenv()?;
+    let database_url = dotenvy::var("DATABASE_URL").context("DATABASE_URL must be set")?;
+    let pool = SqlitePoolOptions::new()
+        .max_connections(10)
+        .acquire_timeout(Duration::from_secs(3))
+        .connect(&database_url)
+        .await
+        .context("failed to connect to DATABASE_URL")?;
 
-    let db_url = env::var("DATABASE_URL").expect("DATABASE_URL is not set in .env file");
-    let host = env::var("HOST").expect("HOST is not set in .env file");
-    let port = env::var("PORT").expect("PORT is not set in .env file");
-    let server_url = format!("{host}:{port}");
-
-    let conn = Database::connect(db_url)
-        .await?;
-    Migrator::up(&conn, None).await?;
+    sqlx::migrate!().run(&pool).await?;
 
     let app = Router::new()
-        .route("/", get(root))
-        .route("/users", post(create_user));
+        .route("/", get(using_connection_pool_extractor))
+        .route("/games", get(controllers::game_controller::get_games))
+        .route("/games/:id", get(controllers::game_controller::get_game))
+        .route("/guides", get(controllers::guide_controller::get_guides))
+        .route("/guides/:id", get(controllers::guide_controller::get_guide))
+        .route("/reports", get(controllers::report_controller::get_reports))
+        .route("/reports/:id", get(controllers::report_controller::get_report))
+        .route("/reports", post(controllers::report_controller::post_report))
+        .route("/reports/:id", put(controllers::report_controller::put_report))
+        .route("/reports/:id", delete(controllers::report_controller::delete_report))
+        .with_state(pool);
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
     tracing::info!("Listening on {}", addr);
@@ -36,36 +43,21 @@ async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 
-// basic handler that responds with a static string
-async fn root() -> &'static str {
-    "Hello, World!"
+// we can extract the connection pool with `State`
+async fn using_connection_pool_extractor(
+    State(pool): State<SqlitePool>,
+) -> Result<String, (StatusCode, String)> {
+    sqlx::query_scalar("select 'hello world from sqlite'")
+        .fetch_one(&pool)
+        .await
+        .map_err(internal_error)
 }
 
-async fn create_user(
-    // this argument tells axum to parse the request body
-    // as JSON into a `CreateUser` type
-    Json(payload): Json<CreateUser>,
-) -> (StatusCode, Json<User>) {
-    // insert your application logic here
-    let user = User {
-        id: 1337,
-        username: payload.username,
-    };
-
-    // this will be converted into a JSON response
-    // with a status code of `201 Created`
-    (StatusCode::CREATED, Json(user))
-}
-
-// the input to our `create_user` handler
-#[derive(Deserialize)]
-struct CreateUser {
-    username: String,
-}
-
-// the output to our `create_user` handler
-#[derive(Serialize)]
-struct User {
-    id: u64,
-    username: String,
+/// Utility function for mapping any error into a `500 Internal Server Error`
+/// response.
+fn internal_error<E>(err: E) -> (StatusCode, String)
+where
+    E: std::error::Error,
+{
+    (StatusCode::INTERNAL_SERVER_ERROR, err.to_string())
 }
