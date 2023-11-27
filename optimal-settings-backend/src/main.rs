@@ -33,13 +33,16 @@ async fn main() -> anyhow::Result<()> {
         .route("/reports", post(controllers::report_controller::post_report))
         .route("/reports/:id", put(controllers::report_controller::put_report))
         .route("/reports/:id", delete(controllers::report_controller::delete_report))
+        .route("/auth", post(controllers::auth_controller::authorize))
+        .route("/auth", get(controllers::auth_controller::print_token))
         .with_state(pool);
 
-    let addr = SocketAddr::from(([127, 0, 0, 1], 3000));
+    
+
+    let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
     tracing::info!("Listening on {}", addr);
-    axum::Server::bind(&addr)
-        .serve(app.into_make_service())
-        .await?;
+    let listener = tokio::net::TcpListener::bind(addr).await?;
+    axum::serve(listener, app).await?;
     Ok(())
 }
 

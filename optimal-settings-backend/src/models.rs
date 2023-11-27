@@ -6,6 +6,8 @@ mod guide_image;
 mod game_settings;
 mod game_settings_sources;
 
+pub mod auth;
+
 pub use game::Game;
 pub use report::{Report, OperatingSystem};
 pub use guide::Guide;
