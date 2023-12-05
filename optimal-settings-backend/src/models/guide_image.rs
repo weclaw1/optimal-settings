@@ -8,10 +8,12 @@
     height      smallint      NOT NULL CHECK (height > 0)
 ); */
 
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
+use serde_with::skip_serializing_none;
 
 use super::ValidateModel;
 
+#[skip_serializing_none]
 #[derive(Serialize, Deserialize)]
 pub struct GuideImage {
     pub src: String,

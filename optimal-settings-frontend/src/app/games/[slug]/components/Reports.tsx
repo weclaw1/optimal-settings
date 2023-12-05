@@ -1,12 +1,12 @@
 import ReportForm from "./ReportForm";
 import ReportCardList from "./ReportCardList";
-import { Report } from "../types/report";
+import { Report, SettingsType } from "../types/report";
 
-type ReportsProps = {
+type Reports = {
   reports: Report[];
-  gameId: string;
+  gameId: number;
   gameSlug: string;
-  settingsType: "low" | "medium" | "high";
+  settingsType: SettingsType;
 };
 
 export default function Reports({
@@ -14,15 +14,20 @@ export default function Reports({
   gameId,
   gameSlug,
   settingsType,
-}: ReportsProps) {
+}: Reports) {
   return (
     <div className="flex flex-col gap-6 items-center">
       <h2 className="text-2xl font-bold">
-        Reports for {settingsType} settings
+        Reports for {settingsType.toLowerCase()} settings
       </h2>
-      <ReportCardList reports={reports} />
+      <ReportCardList
+        reports={reports.filter(
+          (report) => report.settingsType === settingsType,
+        )}
+      />
       <h2 className="text-2xl font-bold">
-        Submit a new report for this game on {settingsType} settings
+        Submit a new report for this game on {settingsType.toLowerCase()}{" "}
+        settings
       </h2>
       <ReportForm
         gameId={gameId}

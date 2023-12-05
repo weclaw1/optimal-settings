@@ -6,7 +6,7 @@ import SearchBar from "@/components/SearchBar";
 import GameCardList from "./GameCardList";
 import { Game } from "../types/game";
 
-type FilterableGameListProps = {
+type FilterableGameList = {
   initialFilterText?: string;
   games: Game[];
 };
@@ -14,7 +14,7 @@ type FilterableGameListProps = {
 export default function FilterableGameList({
   games,
   initialFilterText = "",
-}: FilterableGameListProps) {
+}: FilterableGameList) {
   const [filterText, setFilterText] = useState(initialFilterText);
 
   return (

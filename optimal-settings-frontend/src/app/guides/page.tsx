@@ -1,12 +1,34 @@
+import camelcaseKeys from "camelcase-keys";
 import FilterableGuideList from "./components/FilterableGuideList";
-import guides from "./data/guides.json";
+import { Guide } from "./types/guide";
 
-export default function Guides({
+async function getGuides(): Promise<Guide[]> {
+  const res = await fetch(`${process.env.BACKEND_URL}/guides`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  const guides = await res.json();
+  const parsedGuides = Guide.array().parse(
+    camelcaseKeys(guides, { deep: true }),
+  );
+
+  return parsedGuides.map((guide) => ({
+    ...guide,
+    image: {
+      ...guide.image,
+      src: `${process.env.BACKEND_URL}${guide.image.src}`,
+    },
+  }));
+}
+
+export default async function Guides({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
   const initialFilterText = searchParams["search"] as string | undefined;
+  const guides = await getGuides();
   return (
     <FilterableGuideList
       guides={guides}

@@ -1,6 +1,9 @@
 use std::path::PathBuf;
 
-use crate::{models::{Game, ValidateModel}, repositories::{GameRepository, Repository, SlugRepository}};
+use crate::{
+    models::{Game, ValidateModel},
+    repositories::{GameRepository, Repository, SlugRepository},
+};
 
 const GAMES_PATH: &str = "data/games";
 

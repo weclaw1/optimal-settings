@@ -6,12 +6,14 @@ use crate::models::Guide;
 
 use super::{Repository, SlugRepository};
 
-pub struct GuideRepository{
+pub struct GuideRepository {
     guides_path: PathBuf,
 }
 
 impl GuideRepository {
-    pub fn new(guides_path: PathBuf) -> Self { Self { guides_path } }
+    pub fn new(guides_path: PathBuf) -> Self {
+        Self { guides_path }
+    }
 }
 
 #[async_trait]

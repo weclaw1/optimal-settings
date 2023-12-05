@@ -2,6 +2,7 @@ CREATE TABLE reports (
     id                        INTEGER PRIMARY KEY AUTOINCREMENT,
     username                  TEXT,
     game_id                   INTEGER NOT NULL,
+    settings_type             TEXT NOT NULL,
     operating_system          TEXT NOT NULL,
     operating_system_version  TEXT NOT NULL,
     kernel_version            TEXT,
@@ -17,4 +18,5 @@ CREATE TABLE reports (
 
 CREATE INDEX reports_game_id_index ON reports (game_id);
 CREATE INDEX reports_username_index ON reports (username);
+CREATE INDEX reports_settings_type_index ON reports (settings_type);
 

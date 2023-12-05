@@ -1,21 +1,56 @@
-import games from "../data/games.json";
-import gameDetails from "./data/game-details.json";
-import { GameDetails } from "./types/game-details";
 import Settings from "./components/Settings";
+import { Game } from "../types/game";
+import { Report } from "./types/report";
+import camelcaseKeys from "camelcase-keys";
 
 export async function generateStaticParams() {
-  return games.map((game) => ({
-    slug: game.slug,
-  }));
-}
-
-export default function Game({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  const game = (gameDetails as { [key: string]: GameDetails })[slug];
-
-  if (!game) {
-    throw new Error(`No game found for slug: ${slug}`);
+  const res = await fetch(`${process.env.BACKEND_URL}/games`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
   }
 
-  return <Settings gameDetails={game} />;
+  const games = await res.json();
+  const parsedGames = Game.array().parse(camelcaseKeys(games, { deep: true }));
+
+  return parsedGames.map((game) => game.slug);
+}
+
+async function getGame(slug: string): Promise<Game> {
+  const res = await fetch(`${process.env.BACKEND_URL}/games?slug=${slug}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  const game = await res.json();
+  const parsedGame = Game.parse(camelcaseKeys(game, { deep: true }));
+
+  return parsedGame;
+}
+
+async function getGameReports(gameId: number): Promise<Report[]> {
+  const res = await fetch(
+    `${process.env.BACKEND_URL}/reports?game_id=${gameId}`,
+  );
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  const reports = await res.json();
+  const parsedReports = Report.array().parse(
+    camelcaseKeys(reports, { deep: true }),
+  );
+
+  return parsedReports;
+}
+
+export default async function GamePage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const { slug } = params;
+  const game = await getGame(slug);
+  const reports = await getGameReports(game.id);
+
+  return <Settings game={game} reports={reports} />;
 }

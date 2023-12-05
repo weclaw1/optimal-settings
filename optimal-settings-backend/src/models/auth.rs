@@ -1,12 +1,15 @@
 use std::fmt::Display;
 
-use axum::{http::request::Parts, async_trait, extract::FromRequestParts, RequestPartsExt};
-use axum_extra::{TypedHeader, headers::{Authorization, authorization::Bearer}};
-use jsonwebtoken::{EncodingKey, DecodingKey, decode, Validation};
-use serde::{Serialize, Deserialize};
+use axum::{async_trait, extract::FromRequestParts, http::request::Parts, RequestPartsExt};
+use axum_extra::{
+    headers::{authorization::Bearer, Authorization},
+    TypedHeader,
+};
+use jsonwebtoken::{decode, DecodingKey, EncodingKey, Validation};
+use serde::{Deserialize, Serialize};
 use time::OffsetDateTime;
 
-use crate::{services::auth_service::KEYS, error::AuthError};
+use crate::{error::AuthError, services::auth_service::KEYS};
 
 pub struct Keys {
     encoding: EncodingKey,
@@ -37,13 +40,16 @@ pub struct Claims {
 }
 
 impl Claims {
-    pub fn new(sub: String, exp: usize) -> Self { Self { sub, exp } }
+    pub fn new(sub: String, exp: usize) -> Self {
+        Self { sub, exp }
+    }
 }
 
 impl Display for Claims {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let exp = OffsetDateTime::from_unix_timestamp(self.exp.try_into().map_err(|_| std::fmt::Error)?)
-            .map_err(|_| std::fmt::Error)?;
+        let exp =
+            OffsetDateTime::from_unix_timestamp(self.exp.try_into().map_err(|_| std::fmt::Error)?)
+                .map_err(|_| std::fmt::Error)?;
         write!(f, "User: {}\nExpiration: {}", self.sub, exp)
     }
 }
@@ -62,7 +68,7 @@ where
             .await
             .map_err(|_| AuthError::InvalidToken)?;
         // Decode the user data
-        let token_data = decode::<Claims>(bearer.token(), &KEYS.decoding(), &Validation::default())
+        let token_data = decode::<Claims>(bearer.token(), KEYS.decoding(), &Validation::default())
             .map_err(|_| AuthError::InvalidToken)?;
 
         Ok(token_data.claims)
@@ -71,15 +77,14 @@ where
 
 #[derive(Debug, Serialize)]
 pub struct AuthBody {
-    access_token: String,
+    token: String,
     token_type: String,
 }
 
-
 impl AuthBody {
-    pub fn new(access_token: String) -> Self {
+    pub fn new(token: String) -> Self {
         Self {
-            access_token,
+            token,
             token_type: "Bearer".to_string(),
         }
     }
@@ -92,7 +97,9 @@ pub struct UserCredentials {
 }
 
 impl UserCredentials {
-    pub fn new(username: String, password: String) -> Self { Self { username, password } }
+    pub fn new(username: String, password: String) -> Self {
+        Self { username, password }
+    }
 
     pub fn username(&self) -> &str {
         self.username.as_ref()

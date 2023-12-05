@@ -1,7 +1,9 @@
+import { SettingsType } from "./report";
+
 export type ReportFormState = {
-  gameId: string;
+  gameId: number;
   gameSlug: string;
-  settingsType: "low" | "medium" | "high";
+  settingsType: SettingsType;
   errors: {
     formErrors?: string[];
     fieldErrors?: {

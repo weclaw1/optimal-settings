@@ -1,4 +1,4 @@
-type TableRowProps = {
+type TableRow = {
   highlightOnHover?: boolean;
   children: React.ReactNode;
 };
@@ -6,6 +6,6 @@ type TableRowProps = {
 export default function TableRow({
   highlightOnHover = false,
   children,
-}: TableRowProps) {
+}: TableRow) {
   return <tr className={highlightOnHover ? "hover" : undefined}>{children}</tr>;
 }

@@ -1,7 +1,7 @@
-type FormInputProps = {
+type FormInput = {
   label: string;
   name: string;
-  type: "text" | "number";
+  type: "text" | "number" | "password";
   value?: string;
   required?: boolean;
   placeholder?: string;
@@ -26,7 +26,7 @@ export default function FormInput({
   pattern,
   onChange,
   errors,
-}: FormInputProps) {
+}: FormInput) {
   let labelTextClasses = "label-text";
   if (required) {
     labelTextClasses += " after:content-['*'] after:text-error after:ml-1";

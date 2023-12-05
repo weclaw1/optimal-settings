@@ -5,12 +5,14 @@ use crate::models::Report;
 
 use super::Repository;
 
-pub struct ReportRepository{
+pub struct ReportRepository {
     pool: SqlitePool,
 }
 
 impl ReportRepository {
-    pub fn new(pool: SqlitePool) -> Self { Self { pool } }
+    pub fn new(pool: SqlitePool) -> Self {
+        Self { pool }
+    }
 
     pub async fn get_by_game_id(&self, game_id: i64) -> Result<Vec<Report>, anyhow::Error> {
         let reports = sqlx::query_as!(Report, "SELECT * FROM reports WHERE game_id = ?", game_id)
@@ -41,11 +43,12 @@ impl Repository<Report, i64> for ReportRepository {
 
     async fn add(&self, item: Report) -> Result<i64, anyhow::Error> {
         let result = sqlx::query!(
-            "INSERT INTO reports (username, game_id, operating_system, operating_system_version, kernel_version, processor, graphics_card, random_access_memory, average_frames_per_second, resolution_width, resolution_height, comments, created_at)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            "INSERT INTO reports (username, game_id, settings_type, operating_system, operating_system_version, kernel_version, processor, graphics_card, random_access_memory, average_frames_per_second, resolution_width, resolution_height, comments, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
              RETURNING id",
             item.username,
             item.game_id,
+            item.settings_type,
             item.operating_system,
             item.operating_system_version,
             item.kernel_version,
@@ -66,10 +69,11 @@ impl Repository<Report, i64> for ReportRepository {
 
     async fn update(&self, item: Report) -> Result<(), anyhow::Error> {
         sqlx::query!(
-            "UPDATE reports SET username = ?, game_id = ?, operating_system = ?, operating_system_version = ?, kernel_version = ?, processor = ?, graphics_card = ?, random_access_memory = ?, average_frames_per_second = ?, resolution_width = ?, resolution_height = ?, comments = ?, created_at = ?
+            "UPDATE reports SET username = ?, game_id = ?, settings_type = ?, operating_system = ?, operating_system_version = ?, kernel_version = ?, processor = ?, graphics_card = ?, random_access_memory = ?, average_frames_per_second = ?, resolution_width = ?, resolution_height = ?, comments = ?, created_at = ?
              WHERE id = ?",
             item.username,
             item.game_id,
+            item.settings_type,
             item.operating_system,
             item.operating_system_version,
             item.kernel_version,
@@ -98,9 +102,12 @@ impl Repository<Report, i64> for ReportRepository {
     }
 
     async fn exists(&self, id: i64) -> Result<bool, anyhow::Error> {
-        let result = sqlx::query!("SELECT EXISTS(SELECT 1 FROM reports WHERE id = ?) AS exists_in_table", id)
-            .fetch_one(&self.pool)
-            .await?;
+        let result = sqlx::query!(
+            "SELECT EXISTS(SELECT 1 FROM reports WHERE id = ?) AS exists_in_table",
+            id
+        )
+        .fetch_one(&self.pool)
+        .await?;
 
         Ok(result.exists_in_table.unwrap_or(0) != 0)
     }

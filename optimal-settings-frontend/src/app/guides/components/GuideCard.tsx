@@ -1,18 +1,14 @@
 import Link from "next/link";
 import Card from "@/components/Card";
+import { GuideImage } from "../types/guide-image";
 
-type GuideCardProps = {
+type GuideCard = {
   name: string;
   slug: string;
-  image: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
+  image: GuideImage;
 };
 
-export default function GuideCard({ name, image, slug }: GuideCardProps) {
+export default function GuideCard({ name, image, slug }: GuideCard) {
   const route = `/guides/${slug}`;
 
   return (

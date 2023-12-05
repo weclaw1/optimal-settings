@@ -3,11 +3,11 @@ import TableBody from "@/components/TableBody";
 import TableCell from "@/components/TableCell";
 import TableRow from "@/components/TableRow";
 
-type SettingsTableProps = {
+type SettingsTable = {
   settings: [string, string][];
 };
 
-export default function SettingsTable({ settings }: SettingsTableProps) {
+export default function SettingsTable({ settings }: SettingsTable) {
   return (
     <Table striped border="border">
       <TableBody>

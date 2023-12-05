@@ -1,11 +1,11 @@
 import GameCard from "./GameCard";
 import { Game } from "../types/game";
 
-type GameCardListProps = {
+type GameCardList = {
   games: Game[];
 };
 
-export default function GameCardList({ games }: GameCardListProps) {
+export default function GameCardList({ games }: GameCardList) {
   if (games.length === 0) {
     return <p className="m-4">No games found</p>;
   }

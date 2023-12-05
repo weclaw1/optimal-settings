@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-type NavigationMenuProps = {
+type NavigationMenu = {
   routes: {
     path: string;
     name: string;
@@ -11,7 +11,7 @@ type NavigationMenuProps = {
 export default function NavigationMenu({
   routes,
   type = "horizontal",
-}: NavigationMenuProps) {
+}: NavigationMenu) {
   const classes =
     type === "horizontal"
       ? "menu-horizontal"

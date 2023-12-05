@@ -2,11 +2,7 @@
 
 import Image from "next/image";
 import { CSSProperties, useState } from "react";
-import {
-  ReactCompareSlider,
-  ReactCompareSliderImage,
-  styleFitContainer,
-} from "react-compare-slider";
+import { ReactCompareSlider, styleFitContainer } from "react-compare-slider";
 
 type Image = {
   src: string;
@@ -16,18 +12,18 @@ type Image = {
   label?: string;
 };
 
-type CompareImagesProps = {
+type CompareImages = {
   firstImage: Image;
   secondImage: Image;
 };
 
-type ComparedImageProps = {
+type ComparedImage = {
   image: Image;
   position: "start" | "end";
   opacity: number;
 };
 
-const ComparedImage = ({ image, position, opacity }: ComparedImageProps) => {
+const ComparedImage = ({ image, position, opacity }: ComparedImage) => {
   const labelStyle: CSSProperties = {
     fontSize: "1rem",
     position: "absolute" as const,
@@ -72,7 +68,7 @@ const ComparedImage = ({ image, position, opacity }: ComparedImageProps) => {
 export default function CompareImages({
   firstImage,
   secondImage,
-}: CompareImagesProps) {
+}: CompareImages) {
   const [labelOpacity, setLabelOpacity] = useState(1);
 
   return (

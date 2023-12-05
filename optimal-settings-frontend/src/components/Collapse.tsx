@@ -1,10 +1,10 @@
-type CollapseProps = {
+type Collapse = {
   label: string;
   icon?: "arrow" | "plus";
   children: React.ReactNode;
 };
 
-export default function Collapse({ label, icon, children }: CollapseProps) {
+export default function Collapse({ label, icon, children }: Collapse) {
   let collapseClasses = "collapse border border-base-300 bg-base-200";
   if (icon) {
     collapseClasses += ` collapse-${icon}`;

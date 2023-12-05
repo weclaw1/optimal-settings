@@ -1,10 +1,10 @@
 import { useFormStatus } from "react-dom";
 
-type FormSubmitButtonProps = {
+type FormSubmitButton = {
   title: string;
 };
 
-export default function FormSubmitButton({ title }: FormSubmitButtonProps) {
+export default function FormSubmitButton({ title }: FormSubmitButton) {
   const { pending } = useFormStatus();
 
   return (

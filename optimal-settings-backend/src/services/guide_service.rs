@@ -1,6 +1,9 @@
 use std::path::PathBuf;
 
-use crate::{models::{Guide, ValidateModel}, repositories::{GuideRepository, Repository, SlugRepository}};
+use crate::{
+    models::{Guide, ValidateModel},
+    repositories::{GuideRepository, Repository, SlugRepository},
+};
 
 const GUIDES_PATH: &str = "data/guides";
 

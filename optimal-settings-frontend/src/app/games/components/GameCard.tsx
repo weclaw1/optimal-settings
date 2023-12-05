@@ -1,18 +1,14 @@
 import Link from "next/link";
 import Card from "@/components/Card";
+import { GameImage } from "../types/game-image";
 
-type GameCardProps = {
+type GameCard = {
   name: string;
   slug: string;
-  image: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
+  image: GameImage;
 };
 
-export default function GameCard({ name, image, slug }: GameCardProps) {
+export default function GameCard({ name, image, slug }: GameCard) {
   const route = `/games/${slug}`;
 
   return (

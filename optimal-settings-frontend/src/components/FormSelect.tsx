@@ -1,4 +1,4 @@
-type FormSelectProps = {
+type FormSelect = {
   label: string;
   name: string;
   required?: boolean;
@@ -20,7 +20,7 @@ export default function FormSelect({
   onChange,
   options,
   errors,
-}: FormSelectProps) {
+}: FormSelect) {
   const isControlled = value !== undefined;
 
   let labelTextClasses = "label-text";

@@ -1,6 +1,6 @@
 import NavigationMenu from "./NavigationMenu";
 
-type NavigationProps = {
+type Navigation = {
   children: React.ReactNode;
   title?: string;
   routes: {
@@ -9,11 +9,7 @@ type NavigationProps = {
   }[];
 };
 
-export default function Navigation({
-  children,
-  title,
-  routes,
-}: NavigationProps) {
+export default function Navigation({ children, title, routes }: Navigation) {
   return (
     <div className="drawer bg-base-100">
       <input id="drawer" type="checkbox" className="drawer-toggle" />

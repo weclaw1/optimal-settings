@@ -1,11 +1,11 @@
-use std::collections::HashMap;
+use serde::{Deserialize, Serialize};
+use serde_with::skip_serializing_none;
 
-use serde::{Serialize, Deserialize};
-
+#[skip_serializing_none]
 #[derive(Serialize, Deserialize)]
 pub struct GameSettings {
-    pub high: Option<HashMap<String, String>>,
-    pub medium: Option<HashMap<String, String>>,
-    pub low: Option<HashMap<String, String>>,
+    pub high: Option<Vec<[String; 2]>>,
+    pub medium: Option<Vec<[String; 2]>>,
+    pub low: Option<Vec<[String; 2]>>,
     pub additional_informations: Option<String>,
 }

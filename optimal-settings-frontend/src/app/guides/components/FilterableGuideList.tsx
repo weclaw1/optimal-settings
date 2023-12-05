@@ -6,7 +6,7 @@ import SearchBar from "@/components/SearchBar";
 import GuideCardList from "./GuideCardList";
 import { Guide } from "../types/guide";
 
-type FilterableGuideListProps = {
+type FilterableGuideList = {
   initialFilterText?: string;
   guides: Guide[];
 };
@@ -14,7 +14,7 @@ type FilterableGuideListProps = {
 export default function FilterableGuideList({
   guides,
   initialFilterText = "",
-}: FilterableGuideListProps) {
+}: FilterableGuideList) {
   const [filterText, setFilterText] = useState(initialFilterText);
 
   return (

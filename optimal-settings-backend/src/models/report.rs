@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use serde_with::skip_serializing_none;
 use time::OffsetDateTime;
 
 use super::ValidateModel;
@@ -22,11 +23,31 @@ impl From<String> for OperatingSystem {
     }
 }
 
+#[derive(Serialize, Deserialize, sqlx::Type)]
+pub enum SettingsType {
+    High,
+    Medium,
+    Low,
+}
+
+impl From<String> for SettingsType {
+    fn from(s: String) -> Self {
+        match s.as_str() {
+            "High" => SettingsType::High,
+            "Medium" => SettingsType::Medium,
+            "Low" => SettingsType::Low,
+            _ => SettingsType::Low,
+        }
+    }
+}
+
+#[skip_serializing_none]
 #[derive(Serialize, Deserialize)]
 pub struct Report {
     pub id: Option<i64>,
     pub username: Option<String>,
     pub game_id: i64,
+    pub settings_type: SettingsType,
     pub operating_system: OperatingSystem,
     pub operating_system_version: String,
     pub kernel_version: Option<String>,
@@ -52,7 +73,9 @@ impl ValidateModel for Report {
             return Err(anyhow::anyhow!("game_id must be positive"));
         }
         if self.operating_system_version.is_empty() {
-            return Err(anyhow::anyhow!("operating_system_version must not be empty"));
+            return Err(anyhow::anyhow!(
+                "operating_system_version must not be empty"
+            ));
         }
         if let Some(kernel_version) = &self.kernel_version {
             if kernel_version.is_empty() {
@@ -69,7 +92,9 @@ impl ValidateModel for Report {
             return Err(anyhow::anyhow!("random_access_memory must not be empty"));
         }
         if self.average_frames_per_second <= 0 {
-            return Err(anyhow::anyhow!("average_frames_per_second must be positive"));
+            return Err(anyhow::anyhow!(
+                "average_frames_per_second must be positive"
+            ));
         }
         if self.resolution_width <= 0 {
             return Err(anyhow::anyhow!("resolution_width must be positive"));

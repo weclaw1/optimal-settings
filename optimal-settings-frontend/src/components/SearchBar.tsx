@@ -1,6 +1,6 @@
 "use client";
 
-type SearchBarProps = {
+type SearchBar = {
   filterText?: string;
   placeholder?: string;
   submitButton?: {
@@ -16,7 +16,7 @@ export default function SearchBar({
   submitButton,
   onFilterTextChange,
   onSearch,
-}: SearchBarProps) {
+}: SearchBar) {
   return (
     <form className="flex" action={onSearch}>
       <input

@@ -1,12 +1,15 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
+use serde_with::skip_serializing_none;
 
-use super::ValidateModel;
+use super::{GuideImage, ValidateModel};
 
+#[skip_serializing_none]
 #[derive(Serialize, Deserialize)]
 pub struct Guide {
     pub id: i64,
     pub name: String,
     pub slug: String,
+    pub image: GuideImage,
     pub content: Option<String>,
 }
 
@@ -26,8 +29,8 @@ impl ValidateModel for Guide {
                 return Err(anyhow::anyhow!("content must not be empty"));
             }
         }
+        self.image.validate()?;
 
         Ok(())
     }
 }
-

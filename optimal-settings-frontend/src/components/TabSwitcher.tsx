@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-type TabSwitcherProps = {
+type TabSwitcher = {
   tabs: {
     label: string;
     content: React.ReactNode;
@@ -12,13 +12,13 @@ type TabSwitcherProps = {
   initialActiveTab?: number;
 };
 
-type TabProps = {
+type Tab = {
   label: string;
   active?: boolean;
   onClick: () => void;
 };
 
-const Tab = ({ label, active, onClick }: TabProps) => {
+const Tab = ({ label, active, onClick }: Tab) => {
   let tabClasses = "tab";
   if (active) {
     tabClasses += " tab-active";
@@ -35,7 +35,7 @@ export default function TabSwitcher({
   type,
   size,
   initialActiveTab = 0,
-}: TabSwitcherProps) {
+}: TabSwitcher) {
   const [activeTab, setActiveTab] = useState(initialActiveTab);
 
   let tabsClasses = "flex flex-row justify-center tabs gap-4";

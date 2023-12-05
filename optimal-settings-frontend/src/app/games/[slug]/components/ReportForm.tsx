@@ -3,24 +3,24 @@
 import { useState } from "react";
 import { useFormState } from "react-dom";
 import { addReport } from "../actions";
-import { OperatingSystem } from "../types/report";
+import { OperatingSystem, SettingsType } from "../types/report";
 import Form from "@/components/Form";
 import FormSubmitButton from "@/components/FormSubmitButton";
 import FormInput from "@/components/FormInput";
 import FormSelect from "@/components/FormSelect";
 import FormTextarea from "@/components/FormTextarea";
 
-type ReportFormProps = {
-  gameId: string;
+type ReportForm = {
+  gameId: number;
   gameSlug: string;
-  settingsType: "low" | "medium" | "high";
+  settingsType: SettingsType;
 };
 
 export default function ReportForm({
   gameId,
   gameSlug,
   settingsType,
-}: ReportFormProps) {
+}: ReportForm) {
   const [state, formAction] = useFormState(addReport, {
     gameId,
     gameSlug,
@@ -28,16 +28,17 @@ export default function ReportForm({
     errors: {},
   });
   const [selectedOperatingSystem, setSelectedOperatingSystem] =
-    useState<OperatingSystem>("windows");
+    useState<OperatingSystem>("Windows");
 
   const operatingSystemVersionPlaceholders: Record<OperatingSystem, string> = {
-    windows: "Windows 10",
-    macos: "macOS 14.1.1",
-    linux: "Ubuntu 22.04 LTS",
+    Windows: "Windows 10",
+    MacOS: "macOS 14.1.1",
+    Linux: "Ubuntu 22.04 LTS",
+    Other: "Redox OS 0.8.0",
   };
 
   return (
-    <Form centered formAction={formAction}>
+    <Form centered formAction={formAction} errors={state.errors.formErrors}>
       <FormInput
         label="Username"
         name="username"
@@ -61,9 +62,10 @@ export default function ReportForm({
         required
         placeholder="Select operating system"
         options={[
-          ["windows", "Windows"],
-          ["macos", "macOS"],
-          ["linux", "Linux"],
+          ["Windows", "Windows"],
+          ["MacOS", "macOS"],
+          ["Linux", "Linux"],
+          ["Other", "Other"],
         ]}
         onChange={(e) =>
           setSelectedOperatingSystem(e.target.value as OperatingSystem)
@@ -80,7 +82,7 @@ export default function ReportForm({
         }
         errors={state.errors.fieldErrors?.operatingSystemVersion}
       />
-      {selectedOperatingSystem === "linux" && (
+      {selectedOperatingSystem === "Linux" && (
         <FormInput
           label="Kernel version"
           name="kernelVersion"
@@ -90,12 +92,20 @@ export default function ReportForm({
         />
       )}
       <FormInput
-        label="Resolution"
-        name="resolution"
+        label="Resolution width"
+        name="resolutionWidth"
         type="text"
         required
-        placeholder="1920x1080"
-        errors={state.errors.fieldErrors?.resolution}
+        placeholder="1920"
+        errors={state.errors.fieldErrors?.resolutionWidth}
+      />
+      <FormInput
+        label="Resolution height"
+        name="resolutionHeight"
+        type="text"
+        required
+        placeholder="1080"
+        errors={state.errors.fieldErrors?.resolutionHeight}
       />
       <FormInput
         label="CPU"

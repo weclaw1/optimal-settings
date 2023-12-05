@@ -1,4 +1,4 @@
-type FormTextareaProps = {
+type FormTextarea = {
   label: string;
   name: string;
   placeholder?: string;
@@ -16,7 +16,7 @@ export default function FormTextarea({
   required,
   onChange,
   errors,
-}: FormTextareaProps) {
+}: FormTextarea) {
   let labelTextClasses = "label-text";
   if (required) {
     labelTextClasses += " after:content-['*'] after:text-error after:ml-1";

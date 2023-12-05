@@ -1,11 +1,11 @@
 import GuideCard from "./GuideCard";
 import { Guide } from "../types/guide";
 
-type GuideCardListProps = {
+type GuideCardList = {
   guides: Guide[];
 };
 
-export default function GuideCardList({ guides }: GuideCardListProps) {
+export default function GuideCardList({ guides }: GuideCardList) {
   if (guides.length === 0) {
     return <p className="m-4">No guides found</p>;
   }

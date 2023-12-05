@@ -6,12 +6,14 @@ use crate::models::Game;
 
 use super::{Repository, SlugRepository};
 
-pub struct GameRepository{
+pub struct GameRepository {
     games_path: PathBuf,
 }
 
 impl GameRepository {
-    pub fn new(games_path: PathBuf) -> Self { Self { games_path } }
+    pub fn new(games_path: PathBuf) -> Self {
+        Self { games_path }
+    }
 }
 
 #[async_trait]

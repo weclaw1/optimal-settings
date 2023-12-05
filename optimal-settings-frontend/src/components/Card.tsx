@@ -1,11 +1,12 @@
 import Image from "next/image";
 
-type CardProps = {
+type Card = {
   image?: {
     src: string;
     alt: string;
     width: number;
     height: number;
+    attribution?: string;
   };
   cardType?: "normal" | "compact";
   bordered?: boolean;
@@ -17,11 +18,11 @@ export default function Card({
   cardType = "normal",
   bordered = false,
   children,
-}: CardProps) {
+}: Card) {
   let imageContent = null;
   if (image) {
     imageContent = (
-      <figure className="min-w-fit min-h-fit">
+      <figure className="min-w-fit min-h-fit flex flex-col flex-none justify-center">
         <Image
           className="w-36 h-36 sm:w-40 sm:h-40 md:w-44 md:h-44 lg:w-48 lg:h-48 xl:w-52 xl:h-52 2xl:w-56 2xl:h-56 object-contain"
           src={image.src}
@@ -29,6 +30,12 @@ export default function Card({
           width={image.width}
           height={image.height}
         />
+        {image.attribution && (
+          <figcaption
+            className="text-xs text-center text-base-content w-36 sm:w-40 md:w-44 lg:w-48 xl:w-52 2xl:w-56 h-auto prose"
+            dangerouslySetInnerHTML={{ __html: image.attribution }}
+          />
+        )}
       </figure>
     );
   }

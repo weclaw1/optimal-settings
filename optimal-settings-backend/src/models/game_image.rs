@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 use super::ValidateModel;
 
@@ -25,4 +25,3 @@ impl ValidateModel for GameImage {
         Ok(())
     }
 }
-

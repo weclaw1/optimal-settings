@@ -1,20 +1,15 @@
 import Card from "@/components/Card";
-import { OperatingSystem, Report } from "../types/report";
+import { Report } from "../types/report";
 
-type ReportProps = {
+type ReportCard = {
   report: Report;
 };
 
-export default function Report({ report }: ReportProps) {
-  const operatingSystemVersionLabel: Record<OperatingSystem, string> = {
-    windows: "Windows",
-    macos: "macOS",
-    linux: "Linux",
-  };
+export default function ReportCard({ report }: ReportCard) {
   return (
     <Card cardType="compact" bordered>
       <div className="flex flex-col w-full xl:flex-row">
-        <div className="break-all basis-1/2 2xl:basis-3/5 bg-base-300 rounded-box">
+        <div className="break-all basis-1/2 bg-base-300 rounded-box">
           <div className="flex flex-col gap-4 p-4">
             <span>
               <span className="text-accent">Username: </span>
@@ -33,14 +28,14 @@ export default function Report({ report }: ReportProps) {
           </div>
         </div>
         <div className="divider xl:divider-horizontal" />
-        <div className="break-all basis-1/2 2xl:basis-2/5 bg-base-300 rounded-box">
+        <div className="break-all basis-1/2 bg-base-300 rounded-box">
           <div className="flex flex-col gap-4 p-4">
             <span>
               <span className="text-accent">Operating system: </span>
-              {operatingSystemVersionLabel[report.operatingSystem]}
+              {report.operatingSystem}
             </span>
             <span>
-              <span className="text-accent">Operating system version: </span>
+              <span className="text-accent">OS version: </span>
               {report.operatingSystemVersion}
             </span>
             {report.kernelVersion && (
@@ -51,7 +46,7 @@ export default function Report({ report }: ReportProps) {
             )}
             <span>
               <span className="text-accent">Resolution: </span>
-              {report.resolution}
+              {report.resolutionWidth}x{report.resolutionHeight}
             </span>
             <span>
               <span className="text-accent">CPU: </span>
