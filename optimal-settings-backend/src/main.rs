@@ -3,7 +3,7 @@ use axum::{
     routing::{delete, get, post, put},
     Router,
 };
-use sqlx::sqlite::SqlitePoolOptions;
+use sqlx::{sqlite::SqlitePoolOptions, migrate::MigrateDatabase};
 use std::{net::SocketAddr, time::Duration};
 use tower_http::{services::ServeDir, trace::TraceLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -25,6 +25,11 @@ async fn main() -> anyhow::Result<()> {
         .with(tracing_subscriber::fmt::layer())
         .init();
     let database_url = dotenvy::var("DATABASE_URL").context("DATABASE_URL must be set")?;
+
+    if !sqlx::Sqlite::database_exists(&database_url).await? {
+        sqlx::Sqlite::create_database(&database_url).await?;
+    }
+
     let pool = SqlitePoolOptions::new()
         .max_connections(10)
         .acquire_timeout(Duration::from_secs(3))
@@ -62,7 +67,7 @@ async fn main() -> anyhow::Result<()> {
         .layer(TraceLayer::new_for_http())
         .with_state(pool);
 
-    let addr = SocketAddr::from(([0, 0, 0, 0], 3000));
+    let addr = SocketAddr::from(([0, 0, 0, 0], 3001));
     tracing::info!("Listening on {}", addr);
     let listener = tokio::net::TcpListener::bind(addr).await?;
     axum::serve(listener, app).await?;

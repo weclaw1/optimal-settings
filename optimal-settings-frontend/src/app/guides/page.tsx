@@ -17,7 +17,7 @@ async function getGuides(): Promise<Guide[]> {
     ...guide,
     image: {
       ...guide.image,
-      src: `${process.env.BACKEND_URL}${guide.image.src}`,
+      src: `${process.env.PUBLIC_BACKEND_URL}${guide.image.src}`,
     },
   }));
 }

@@ -5,20 +5,6 @@ import camelcaseKeys from "camelcase-keys";
 
 const components = { CompareImages };
 
-export async function generateStaticParams() {
-  const res = await fetch(`${process.env.BACKEND_URL}/guides`);
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  const guides = await res.json();
-  const parsedGuides = Guide.array().parse(
-    camelcaseKeys(guides, { deep: true }),
-  );
-
-  return parsedGuides.map((guide) => guide.slug);
-}
-
 async function getGuide(slug: string): Promise<Guide> {
   const res = await fetch(`${process.env.BACKEND_URL}/guides?slug=${slug}`);
   if (!res.ok) {
@@ -34,7 +20,7 @@ async function getGuide(slug: string): Promise<Guide> {
 
   parsedGuide.content = parsedGuide.content.replace(
     /\/images\//g,
-    `${process.env.BACKEND_URL}/images/`,
+    `${process.env.PUBLIC_BACKEND_URL}/images/`,
   );
   return parsedGuide;
 }

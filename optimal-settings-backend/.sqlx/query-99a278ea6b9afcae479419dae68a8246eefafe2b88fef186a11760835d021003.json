@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT EXISTS(SELECT 1 FROM reports WHERE id = ?) AS exists_in_table",
+  "describe": {
+    "columns": [
+      {
+        "name": "exists_in_table",
+        "ordinal": 0,
+        "type_info": "Int"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      null
+    ]
+  },
+  "hash": "99a278ea6b9afcae479419dae68a8246eefafe2b88fef186a11760835d021003"
+}

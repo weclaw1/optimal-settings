@@ -1,0 +1,104 @@
+{
+  "db_name": "SQLite",
+  "query": "SELECT * FROM reports WHERE game_id = ?",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Int64"
+      },
+      {
+        "name": "username",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "game_id",
+        "ordinal": 2,
+        "type_info": "Int64"
+      },
+      {
+        "name": "settings_type",
+        "ordinal": 3,
+        "type_info": "Text"
+      },
+      {
+        "name": "operating_system",
+        "ordinal": 4,
+        "type_info": "Text"
+      },
+      {
+        "name": "operating_system_version",
+        "ordinal": 5,
+        "type_info": "Text"
+      },
+      {
+        "name": "kernel_version",
+        "ordinal": 6,
+        "type_info": "Text"
+      },
+      {
+        "name": "processor",
+        "ordinal": 7,
+        "type_info": "Text"
+      },
+      {
+        "name": "graphics_card",
+        "ordinal": 8,
+        "type_info": "Text"
+      },
+      {
+        "name": "random_access_memory",
+        "ordinal": 9,
+        "type_info": "Text"
+      },
+      {
+        "name": "average_frames_per_second",
+        "ordinal": 10,
+        "type_info": "Int64"
+      },
+      {
+        "name": "resolution_width",
+        "ordinal": 11,
+        "type_info": "Int64"
+      },
+      {
+        "name": "resolution_height",
+        "ordinal": 12,
+        "type_info": "Int64"
+      },
+      {
+        "name": "comments",
+        "ordinal": 13,
+        "type_info": "Text"
+      },
+      {
+        "name": "created_at",
+        "ordinal": 14,
+        "type_info": "Datetime"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      true,
+      true,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      true,
+      false
+    ]
+  },
+  "hash": "dc1383bcde51708256697fa133fe3750a420e0fe49cb08597cab131900dfabbf"
+}

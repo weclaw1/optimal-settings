@@ -16,7 +16,7 @@ async function getGames(): Promise<Game[]> {
     ...game,
     image: {
       ...game.image,
-      src: `${process.env.BACKEND_URL}${game.image.src}`,
+      src: `${process.env.PUBLIC_BACKEND_URL}${game.image.src}`,
     },
   }));
 }

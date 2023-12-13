@@ -3,18 +3,6 @@ import { Game } from "../types/game";
 import { Report } from "./types/report";
 import camelcaseKeys from "camelcase-keys";
 
-export async function generateStaticParams() {
-  const res = await fetch(`${process.env.BACKEND_URL}/games`);
-  if (!res.ok) {
-    throw new Error("Failed to fetch data");
-  }
-
-  const games = await res.json();
-  const parsedGames = Game.array().parse(camelcaseKeys(games, { deep: true }));
-
-  return parsedGames.map((game) => game.slug);
-}
-
 async function getGame(slug: string): Promise<Game> {
   const res = await fetch(`${process.env.BACKEND_URL}/games?slug=${slug}`);
   if (!res.ok) {

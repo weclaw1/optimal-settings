@@ -1,0 +1,28 @@
+name: optimal-settings
+services:
+  optimal-settings-frontend:
+    build: optimal-settings-frontend
+    ports:
+      - 3000:3000
+    environment:
+      - BACKEND_PROTOCOL=http
+      - BACKEND_HOST=optimal-settings-backend
+      - BACKEND_PORT=3001
+      - PUBLIC_BACKEND_PROTOCOL=http
+      - PUBLIC_BACKEND_HOST=localhost
+      - PUBLIC_BACKEND_PORT=3001
+
+  optimal-settings-backend:
+    build: optimal-settings-backend
+    ports:
+      - 3001:3001
+    environment:
+      - DATABASE_URL=sqlite:data/db/optimal-settings.db
+      - JWT_SECRET=secret
+      - ADMIN_USERNAME=admin
+      - ADMIN_PASSWORD=password
+    volumes:
+      - data:/app/data
+
+volumes:
+  data: {}

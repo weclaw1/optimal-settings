@@ -1,0 +1,20 @@
+{
+  "db_name": "SQLite",
+  "query": "INSERT INTO reports (username, game_id, settings_type, operating_system, operating_system_version, kernel_version, processor, graphics_card, random_access_memory, average_frames_per_second, resolution_width, resolution_height, comments, created_at)\n             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)\n             RETURNING id",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Int64"
+      }
+    ],
+    "parameters": {
+      "Right": 14
+    },
+    "nullable": [
+      false
+    ]
+  },
+  "hash": "879943a1a4f133b6fa02923695419b0255f82dd3d37d1bb81322ec5bc0fcd875"
+}
