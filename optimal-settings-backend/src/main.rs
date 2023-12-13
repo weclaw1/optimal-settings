@@ -3,7 +3,7 @@ use axum::{
     routing::{delete, get, post, put},
     Router,
 };
-use sqlx::{sqlite::SqlitePoolOptions, migrate::MigrateDatabase};
+use sqlx::{migrate::MigrateDatabase, sqlite::SqlitePoolOptions};
 use std::{net::SocketAddr, time::Duration};
 use tower_http::{services::ServeDir, trace::TraceLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
