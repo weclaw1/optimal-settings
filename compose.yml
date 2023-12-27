@@ -1,5 +1,16 @@
-name: optimal-settings
 services:
+  traefik:
+    image: traefik:v2.10.7
+    ports:
+      - "80:80"
+      - "443:443"
+      # remove port 8080 for production
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml
+      - ./traefik/ssl/:/ssl-certs/
+
   optimal-settings-frontend:
     build: optimal-settings-frontend
     ports:
@@ -8,9 +19,12 @@ services:
       - BACKEND_PROTOCOL=http
       - BACKEND_HOST=optimal-settings-backend
       - BACKEND_PORT=3001
-      - PUBLIC_BACKEND_PROTOCOL=http
-      - PUBLIC_BACKEND_HOST=localhost
-      - PUBLIC_BACKEND_PORT=3001
+      - PUBLIC_BACKEND_PROTOCOL=https
+      - PUBLIC_BACKEND_HOST=api.localhost
+      - PUBLIC_BACKEND_PORT=443
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.optimal-settings-frontend.rule=Host(`localhost`)"
 
   optimal-settings-backend:
     build: optimal-settings-backend
@@ -23,6 +37,9 @@ services:
       - ADMIN_PASSWORD=password
     volumes:
       - data:/app/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.optimal-settings-backend.rule=Host(`api.localhost`)"
 
 volumes:
   data: {}
