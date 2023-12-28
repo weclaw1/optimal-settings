@@ -10,6 +10,12 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./traefik/traefik.yml:/etc/traefik/traefik.yml
       - ./traefik/ssl/:/ssl-certs/
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
 
   optimal-settings-frontend:
     build: optimal-settings-frontend
@@ -25,6 +31,12 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.optimal-settings-frontend.rule=Host(`localhost`)"
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
 
   optimal-settings-backend:
     build: optimal-settings-backend
@@ -40,6 +52,12 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.optimal-settings-backend.rule=Host(`api.localhost`)"
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "3"
 
 volumes:
   data: {}
