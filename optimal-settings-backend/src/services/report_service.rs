@@ -1,9 +1,14 @@
+use once_cell::sync::Lazy;
 use sqlx::SqlitePool;
-
+use cf_turnstile::{SiteVerifyRequest, TurnstileClient};
 use crate::{
     models::{Report, ValidateModel},
     repositories::{ReportRepository, Repository},
 };
+
+pub static CAPTCHA_SECRET_KEY: Lazy<String> = Lazy::new(|| {
+    dotenvy::var("CAPTCHA_SECRET_KEY").expect("CAPTCHA_SECRET_KEY must be set")
+});
 
 pub async fn get_reports(pool: &SqlitePool) -> Result<Vec<Report>, anyhow::Error> {
     let report_repository = ReportRepository::new(pool.clone());
@@ -38,7 +43,19 @@ pub async fn get_reports_by_game(
 
 pub async fn add_report(pool: &SqlitePool, report: Report) -> Result<u64, anyhow::Error> {
     let report_repository = ReportRepository::new(pool.clone());
+    let captcha_client = TurnstileClient::new(CAPTCHA_SECRET_KEY.clone().into());
+
+    let validated = captcha_client.siteverify(SiteVerifyRequest {
+        response: report.captcha_token.clone(),
+       ..Default::default()
+    }).await?;
+     
+    if !validated.success {
+        return Err(anyhow::anyhow!("Captcha validation failed"));
+    }
+
     report.validate()?;
+
     let record_id = report_repository.add(report).await?;
     Ok(record_id.try_into()?)
 }

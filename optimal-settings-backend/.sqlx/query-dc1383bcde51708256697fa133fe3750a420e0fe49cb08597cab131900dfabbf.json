@@ -77,6 +77,11 @@
         "name": "created_at",
         "ordinal": 14,
         "type_info": "Datetime"
+      },
+      {
+        "name": "captcha_token",
+        "ordinal": 15,
+        "type_info": "Text"
       }
     ],
     "parameters": {
@@ -97,6 +102,7 @@
       false,
       false,
       true,
+      false,
       false
     ]
   },

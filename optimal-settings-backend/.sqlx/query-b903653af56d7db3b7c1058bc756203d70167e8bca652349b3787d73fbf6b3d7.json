@@ -1,0 +1,12 @@
+{
+  "db_name": "SQLite",
+  "query": "UPDATE reports SET username = ?, game_id = ?, settings_type = ?, operating_system = ?, operating_system_version = ?, kernel_version = ?, processor = ?, graphics_card = ?, random_access_memory = ?, average_frames_per_second = ?, resolution_width = ?, resolution_height = ?, comments = ?, created_at = ?, captcha_token = ?\n             WHERE id = ?",
+  "describe": {
+    "columns": [],
+    "parameters": {
+      "Right": 16
+    },
+    "nullable": []
+  },
+  "hash": "b903653af56d7db3b7c1058bc756203d70167e8bca652349b3787d73fbf6b3d7"
+}

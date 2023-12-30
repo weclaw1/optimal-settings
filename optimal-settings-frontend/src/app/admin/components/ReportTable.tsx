@@ -28,6 +28,7 @@ export default function ReportTable({ reports }: ReportTable) {
           <TableCell type="th">Resolution</TableCell>
           <TableCell type="th">Comments</TableCell>
           <TableCell type="th">Created At</TableCell>
+          <TableCell type="th">Captcha token</TableCell>
           <TableCell type="th">Actions</TableCell>
         </TableRow>
         {reports.map((report) => (
@@ -50,6 +51,7 @@ export default function ReportTable({ reports }: ReportTable) {
                 {new Date(report.createdAt).toLocaleString()}
               </time>
             </TableCell>
+            <TableCell>{report.captchaToken}</TableCell>
             <TableCell>
               <button
                 className="btn btn-sm btn-ghost"

@@ -13,6 +13,7 @@ export async function addReport(
   const formEntries = Array.from(formData.entries()).map(([key, value]) =>
     value === "" ? [key, undefined] : [key, value],
   );
+
   const report = Report.safeParse({
     ...Object.fromEntries(formEntries),
     gameId: prevState.gameId,
@@ -21,6 +22,7 @@ export async function addReport(
     resolutionWidth: Number(formData.get("resolutionWidth")),
     resolutionHeight: Number(formData.get("resolutionHeight")),
     createdAt: new Date().toISOString(),
+    captchaToken: formData.get("cf-turnstile-response"),
   });
 
   if (!report.success) {

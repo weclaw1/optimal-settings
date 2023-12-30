@@ -22,3 +22,4 @@ include_dir = "0.7.3"
 time = { version = "0.3.30", features = ["macros", "serde-human-readable", "local-offset"] }
 jsonwebtoken = "9.1.0"
 once_cell = "1.18.0"
+cf-turnstile = { version = "0.1.0" , default-features = false, features = ["rustls-webpki-roots"] }

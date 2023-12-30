@@ -28,6 +28,7 @@ services:
       - PUBLIC_BACKEND_PROTOCOL=https
       - PUBLIC_BACKEND_HOST=api.localhost
       - PUBLIC_BACKEND_PORT=443
+      - NEXT_PUBLIC_CAPTCHA_SITE_KEY=1x00000000000000000000AA
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.optimal-settings-frontend.rule=Host(`localhost`)"
@@ -47,6 +48,7 @@ services:
       - JWT_SECRET=secret
       - ADMIN_USERNAME=admin
       - ADMIN_PASSWORD=password
+      - CAPTCHA_SECRET_KEY=1x0000000000000000000000000000000AA
     volumes:
       - data:/app/data
     labels:

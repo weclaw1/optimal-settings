@@ -43,8 +43,8 @@ impl Repository<Report, i64> for ReportRepository {
 
     async fn add(&self, item: Report) -> Result<i64, anyhow::Error> {
         let result = sqlx::query!(
-            "INSERT INTO reports (username, game_id, settings_type, operating_system, operating_system_version, kernel_version, processor, graphics_card, random_access_memory, average_frames_per_second, resolution_width, resolution_height, comments, created_at)
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            "INSERT INTO reports (username, game_id, settings_type, operating_system, operating_system_version, kernel_version, processor, graphics_card, random_access_memory, average_frames_per_second, resolution_width, resolution_height, comments, created_at, captcha_token)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
              RETURNING id",
             item.username,
             item.game_id,
@@ -59,7 +59,8 @@ impl Repository<Report, i64> for ReportRepository {
             item.resolution_width,
             item.resolution_height,
             item.comments,
-            item.created_at
+            item.created_at,
+            item.captcha_token
         )
         .fetch_one(&self.pool)
         .await?;
@@ -69,7 +70,7 @@ impl Repository<Report, i64> for ReportRepository {
 
     async fn update(&self, item: Report) -> Result<(), anyhow::Error> {
         sqlx::query!(
-            "UPDATE reports SET username = ?, game_id = ?, settings_type = ?, operating_system = ?, operating_system_version = ?, kernel_version = ?, processor = ?, graphics_card = ?, random_access_memory = ?, average_frames_per_second = ?, resolution_width = ?, resolution_height = ?, comments = ?, created_at = ?
+            "UPDATE reports SET username = ?, game_id = ?, settings_type = ?, operating_system = ?, operating_system_version = ?, kernel_version = ?, processor = ?, graphics_card = ?, random_access_memory = ?, average_frames_per_second = ?, resolution_width = ?, resolution_height = ?, comments = ?, created_at = ?, captcha_token = ?
              WHERE id = ?",
             item.username,
             item.game_id,
@@ -85,6 +86,7 @@ impl Repository<Report, i64> for ReportRepository {
             item.resolution_height,
             item.comments,
             item.created_at,
+            item.captcha_token,
             item.id
         )
         .execute(&self.pool)

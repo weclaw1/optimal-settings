@@ -60,6 +60,7 @@ pub struct Report {
     pub comments: Option<String>,
     #[serde(with = "time::serde::iso8601")]
     pub created_at: OffsetDateTime,
+    pub captcha_token: String,
 }
 
 impl ValidateModel for Report {
@@ -72,24 +73,57 @@ impl ValidateModel for Report {
         if self.game_id <= 0 {
             return Err(anyhow::anyhow!("game_id must be positive"));
         }
+        if let Some(username) = &self.username {
+            if username.is_empty() {
+                return Err(anyhow::anyhow!("username must not be empty"));
+            }
+            if username.len() > 50 {
+                return Err(anyhow::anyhow!("username must not be longer than 50 characters"));
+            }
+        }
         if self.operating_system_version.is_empty() {
             return Err(anyhow::anyhow!(
                 "operating_system_version must not be empty"
+            ));
+        }
+        if self.operating_system_version.len() > 50 {
+            return Err(anyhow::anyhow!(
+                "operating_system_version must not be longer than 50 characters"
             ));
         }
         if let Some(kernel_version) = &self.kernel_version {
             if kernel_version.is_empty() {
                 return Err(anyhow::anyhow!("kernel_version must not be empty"));
             }
+            if kernel_version.len() > 50 {
+                return Err(anyhow::anyhow!(
+                    "kernel_version must not be longer than 50 characters"
+                ));
+            }
         }
         if self.processor.is_empty() {
             return Err(anyhow::anyhow!("processor must not be empty"));
         }
+        if self.processor.len() > 50 {
+            return Err(anyhow::anyhow!(
+                "processor must not be longer than 50 characters"
+            ));
+        }
         if self.graphics_card.is_empty() {
             return Err(anyhow::anyhow!("graphics_card must not be empty"));
         }
+        if self.graphics_card.len() > 50 {
+            return Err(anyhow::anyhow!(
+                "graphics_card must not be longer than 50 characters"
+            ));
+        }
         if self.random_access_memory.is_empty() {
             return Err(anyhow::anyhow!("random_access_memory must not be empty"));
+        }
+        if self.random_access_memory.len() > 20 {
+            return Err(anyhow::anyhow!(
+                "random_access_memory must not be longer than 20 characters"
+            ));
         }
         if self.average_frames_per_second <= 0 {
             return Err(anyhow::anyhow!(
@@ -106,6 +140,14 @@ impl ValidateModel for Report {
             if comments.is_empty() {
                 return Err(anyhow::anyhow!("comments must not be empty"));
             }
+            if comments.len() > 500 {
+                return Err(anyhow::anyhow!(
+                    "comments must not be longer than 500 characters"
+                ));
+            }
+        }
+        if self.captcha_token.is_empty() {
+            return Err(anyhow::anyhow!("captcha_token must not be empty"));
         }
         Ok(())
     }
