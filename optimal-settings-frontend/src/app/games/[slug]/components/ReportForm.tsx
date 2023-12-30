@@ -9,7 +9,7 @@ import FormSubmitButton from "@/components/FormSubmitButton";
 import FormInput from "@/components/FormInput";
 import FormSelect from "@/components/FormSelect";
 import FormTextarea from "@/components/FormTextarea";
-import Script from 'next/script';
+import Script from "next/script";
 
 type ReportForm = {
   gameId: number;

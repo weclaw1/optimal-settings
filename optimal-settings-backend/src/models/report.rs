@@ -78,7 +78,9 @@ impl ValidateModel for Report {
                 return Err(anyhow::anyhow!("username must not be empty"));
             }
             if username.len() > 50 {
-                return Err(anyhow::anyhow!("username must not be longer than 50 characters"));
+                return Err(anyhow::anyhow!(
+                    "username must not be longer than 50 characters"
+                ));
             }
         }
         if self.operating_system_version.is_empty() {
