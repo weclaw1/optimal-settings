@@ -52,7 +52,7 @@ services:
       - ADMIN_PASSWORD=password
       - CAPTCHA_SECRET_KEY=1x0000000000000000000000000000000AA
     volumes:
-      - data:/app/data
+      - ./optimal-settings-backend/data:/app/data
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.optimal-settings-backend.rule=Host(`api.localhost`)"
@@ -63,5 +63,3 @@ services:
         max-size: "20m"
         max-file: "3"
 
-volumes:
-  data: {}
