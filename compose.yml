@@ -18,7 +18,10 @@ services:
         max-file: "3"
 
   optimal-settings-frontend:
-    build: optimal-settings-frontend
+    build:
+      context: optimal-settings-frontend
+      args:
+        - NEXT_PUBLIC_CAPTCHA_SITE_KEY=1x00000000000000000000AA
     ports:
       - 3000:3000
     environment:
@@ -28,7 +31,6 @@ services:
       - PUBLIC_BACKEND_PROTOCOL=https
       - PUBLIC_BACKEND_HOST=api.localhost
       - PUBLIC_BACKEND_PORT=443
-      - NEXT_PUBLIC_CAPTCHA_SITE_KEY=1x00000000000000000000AA
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.optimal-settings-frontend.rule=Host(`localhost`)"

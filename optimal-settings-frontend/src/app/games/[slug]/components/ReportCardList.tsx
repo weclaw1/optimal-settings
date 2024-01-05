@@ -8,7 +8,7 @@ type ReportCardList = {
 export default function ReportCardList({ reports }: ReportCardList) {
   if (reports.length === 0) {
     return (
-      <p className="text-xl text-info">
+      <p className="text-xl text-accent">
         There are no reports for these settings yet. You can create one below!
       </p>
     );
