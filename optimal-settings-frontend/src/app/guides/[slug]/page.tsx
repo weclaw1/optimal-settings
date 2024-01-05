@@ -6,7 +6,9 @@ import camelcaseKeys from "camelcase-keys";
 const components = { CompareImages };
 
 async function getGuide(slug: string): Promise<Guide> {
-  const res = await fetch(`${process.env.BACKEND_URL}/guides?slug=${slug}`);
+  const res = await fetch(`${process.env.BACKEND_URL}/guides?slug=${slug}`, {
+    next: { revalidate: 3600 },
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

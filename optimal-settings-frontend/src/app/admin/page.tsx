@@ -8,6 +8,7 @@ async function getReports(): Promise<Report[]> {
     headers: {
       Authorization: `Bearer ${cookies().get("token")}`,
     },
+    cache: "no-store",
   });
   if (!res.ok) {
     throw new Error("Failed to fetch data");

@@ -4,7 +4,9 @@ import FilterableGameList from "./components/FilterableGameList";
 import { Game } from "./types/game";
 
 async function getGames(): Promise<Game[]> {
-  const res = await fetch(`${process.env.BACKEND_URL}/games`);
+  const res = await fetch(`${process.env.BACKEND_URL}/games`, {
+    next: { revalidate: 3600 },
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

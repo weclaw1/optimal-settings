@@ -3,7 +3,9 @@ import FilterableGuideList from "./components/FilterableGuideList";
 import { Guide } from "./types/guide";
 
 async function getGuides(): Promise<Guide[]> {
-  const res = await fetch(`${process.env.BACKEND_URL}/guides`);
+  const res = await fetch(`${process.env.BACKEND_URL}/guides`, {
+    next: { revalidate: 3600 },
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }

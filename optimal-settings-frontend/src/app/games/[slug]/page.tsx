@@ -4,7 +4,9 @@ import { Report } from "./types/report";
 import camelcaseKeys from "camelcase-keys";
 
 async function getGame(slug: string): Promise<Game> {
-  const res = await fetch(`${process.env.BACKEND_URL}/games?slug=${slug}`);
+  const res = await fetch(`${process.env.BACKEND_URL}/games?slug=${slug}`, {
+    next: { revalidate: 3600 },
+  });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
@@ -18,6 +20,7 @@ async function getGame(slug: string): Promise<Game> {
 async function getGameReports(gameId: number): Promise<Report[]> {
   const res = await fetch(
     `${process.env.BACKEND_URL}/reports?game_id=${gameId}`,
+    { next: { revalidate: 3600 } },
   );
   if (!res.ok) {
     throw new Error("Failed to fetch data");
