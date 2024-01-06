@@ -5,6 +5,7 @@ type Table = {
   pinColumns?: boolean;
   striped?: boolean;
   textAlignment?: "left" | "center" | "right";
+  tableLayout?: "auto" | "fixed";
   children: React.ReactNode;
 };
 
@@ -15,6 +16,7 @@ export default function Table({
   pinColumns,
   striped,
   textAlignment,
+  tableLayout,
   children,
 }: Table) {
   let tableClasses = "table";
@@ -38,7 +40,9 @@ export default function Table({
   }
   return (
     <div className="overflow-x-auto">
-      <table className={tableClasses}>{children}</table>
+      <table className={tableClasses} style={{ tableLayout: tableLayout }}>
+        {children}
+      </table>
     </div>
   );
 }

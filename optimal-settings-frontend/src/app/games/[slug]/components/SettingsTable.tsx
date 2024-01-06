@@ -9,12 +9,14 @@ type SettingsTable = {
 
 export default function SettingsTable({ settings }: SettingsTable) {
   return (
-    <Table striped border="border">
+    <Table striped border="border" tableLayout="fixed">
       <TableBody>
         {settings.map(([key, value]) => (
           <TableRow key={key}>
-            <TableCell type="th">{key}</TableCell>
-            <TableCell>{value}</TableCell>
+            <TableCell type="th" border="border">
+              {key}
+            </TableCell>
+            <TableCell border="border">{value}</TableCell>
           </TableRow>
         ))}
       </TableBody>
