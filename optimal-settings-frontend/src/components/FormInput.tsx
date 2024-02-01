@@ -1,7 +1,7 @@
 type FormInput = {
   label: string;
   name: string;
-  type: "text" | "number" | "password";
+  type: "text" | "number" | "password" | "hidden";
   value?: string;
   required?: boolean;
   placeholder?: string;

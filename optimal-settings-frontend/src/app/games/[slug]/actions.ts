@@ -17,7 +17,6 @@ export async function addReport(
   const report = Report.safeParse({
     ...Object.fromEntries(formEntries),
     gameId: prevState.gameId,
-    settingsType: prevState.settingsType,
     averageFramesPerSecond: Number(formData.get("averageFramesPerSecond")),
     resolutionWidth: Number(formData.get("resolutionWidth")),
     resolutionHeight: Number(formData.get("resolutionHeight")),

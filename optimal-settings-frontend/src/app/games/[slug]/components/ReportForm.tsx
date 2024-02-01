@@ -25,7 +25,6 @@ export default function ReportForm({
   const [state, formAction] = useFormState(addReport, {
     gameId,
     gameSlug,
-    settingsType,
     errors: {},
   });
   const [selectedOperatingSystem, setSelectedOperatingSystem] =
@@ -148,6 +147,7 @@ export default function ReportForm({
           className="cf-turnstile"
           data-sitekey={process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY}
         />
+        <input type="hidden" name="settingsType" value={settingsType} />
         <FormSubmitButton title="Submit" />
       </Form>
     </>
